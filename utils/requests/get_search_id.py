@@ -2,7 +2,7 @@ import requests
 import traceback
 from bs4 import BeautifulSoup
 
-class GetRequest:
+class Request:
     def __init__(self):
         print('get_request carregada')
 
@@ -11,7 +11,8 @@ class GetRequest:
         main_url = "https://sig.ufla.br/modulos/publico/eventos/index.php?xml=1"
 
         try:
-            response = requests.get(main_url).text
+            sessao = requests.session()
+            response = sessao.get(main_url).text
 
             # Parsear o HTML
             soup = BeautifulSoup(response, 'html.parser')
@@ -25,4 +26,4 @@ class GetRequest:
             return None
 
         #Retorna o valor do ID caso tenha
-        return div.get("id")
+        return {"SearchID":div.get("id"), "Cookie":sessao.cookies}
