@@ -20,7 +20,7 @@ def main():
             
             #print(SearchID)
             #segundo passo do request, fazer a pesquisa dos cursos
-            SearchResult = Request.Search(SearchID["SearchID"], SearchID["Cookie"])
+            SearchResult = SearchRequest.Search(SearchID["SearchID"], SearchID["Cookie"])
             
             print(SearchResult)
         
