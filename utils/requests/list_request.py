@@ -19,13 +19,37 @@ class ListRequest():
             # Busca pela div que contenha o ID de pesquisa
             div = soup.find("input", {'name':'modulo_exportacao'})
 
-            print(div.get('value'))
+            return({"SearchID": div.get('value'), "Cookie":sessao.cookies})
         
         except Exception as e:
             print('Houve um erro no request')
             print(traceback.format_exc())
-            return None
 
         #Retorna o valor do ID caso tenha
         #return {"SearchID":div.get("id"), "Cookie":sessao.cookies}
-        return
+        return None
+    
+    def PostRequest(id, Cookie):
+        try:
+            sessao = requests.session()
+            sessao.cookies.update(Cookie)
+            payload = {"modulo_exportacao": id, "num_resultados": 1, "exportar_relatorio": "html"}
+            response = sessao.post(main_url, data=payload).text
+
+            print(response)
+
+            # Parsear o HTML
+            #soup = BeautifulSoup(response, 'html.parser')
+
+            # Busca pela div que contenha o ID de pesquisa
+            #div = soup.find("input", {'name':'modulo_exportacao'})
+
+            #return(div.get('value'))
+        
+        except Exception as e:
+            print('Houve um erro no request')
+            print(traceback.format_exc())
+
+        #Retorna o valor do ID caso tenha
+        #return {"SearchID":div.get("id"), "Cookie":sessao.cookies}
+        return None

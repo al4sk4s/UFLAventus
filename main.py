@@ -23,8 +23,13 @@ def main():
     while True:
         try:
             #primeiro passo do request, conseguir o ID
-            ListRequest.GetSearchID()
-            break
+            search_id = ListRequest.GetSearchID()
+            
+            if search_id == None:
+                return
+            
+            ListRequest.PostRequest(search_id["SearchID"], search_id["Cookie"])
+
         
         except Exception as e:
             print('Houve um erro ao executar, tentando novamente...')
